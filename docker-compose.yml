@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  client:
+    container_name: client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - mern-network
+    volumes:
+      - ./client:/usr/src/app/
+      - /usr/src/app/node_modules
+
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8800:8800
+    networks:
+      - mern-network
+    volumes:
+      - ./server/src:/usr/src/app/src
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    container_name: mongo-db
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - mern-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  mern-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
