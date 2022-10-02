@@ -5,7 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: "yarn"
+    directory: "/server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "yarn"
+    directory: "/client"
     schedule:
       interval: "weekly"
