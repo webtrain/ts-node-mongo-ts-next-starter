@@ -9,7 +9,9 @@ updates:
     directory: "/server"
     schedule:
       interval: "weekly"
+    target-branch: "develop"
   - package-ecosystem: "npm"
     directory: "/client"
     schedule:
       interval: "weekly"
+    target-branch: "develop"
