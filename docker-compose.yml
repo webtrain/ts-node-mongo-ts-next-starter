@@ -20,7 +20,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - 8800:8800
+      - 5500:5500
     networks:
       - mern-network
     volumes:

@@ -1,6 +1,10 @@
-/server/node_modules
-/server/.env
-/server/build
+/client/node_modules/
+/client/.next/
+/client/package-lock.json
+/client/dist/
 
-/client/node_modules
-/client/.next
+/server/node_modules/
+/server/package-lock.json
+/server/dist/
+
+.github
