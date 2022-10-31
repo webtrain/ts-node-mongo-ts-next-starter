@@ -2239,6 +2239,7 @@ mongoose@*, mongoose@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.7.0.tgz#1c1b9124ccba1853e5d5c1dcbad75a0560a9891a"
   integrity sha512-Jt6NSiSpgcrSBzRb9+YwkpjjVuq4H532c4jbf+5Nu0wd/nIPHSOKhr8jnQZ8gQTdPjubF+szR5r6KMSqaY4/Wg==
+
   dependencies:
     bson "^4.6.5"
     kareem "2.4.1"
