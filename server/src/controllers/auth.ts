@@ -3,6 +3,15 @@ import User from '../models/User'
 import statusCodes from '../errors/statusCodes'
 import CustomError from '../errors'
 import { createTokenUser, attachCookiesToResponse } from '../utils'
+import Token from '../models/Token'
+
+interface CustomRequest extends Request {
+  user: {
+    userID: number
+    email: string
+    name: string
+  }
+}
 
 const register = async (req: Request, res: Response) => {
   const { username, email, password } = req.body
@@ -29,17 +38,32 @@ const login = async (req: Request, res: Response) => {
   }
 
   const user = await User.findOne({ email }).exec()
-
   if (!user) throw new CustomError.UnauthenticatedError('Invalid Credentials')
 
   const isValidPassword = await user.comparePassword(password)
   if (!isValidPassword) throw new CustomError.UnauthenticatedError('Invalid Credentials')
+
   const tokenUser = createTokenUser(user)
+
   attachCookiesToResponse(res, tokenUser)
 
   res.status(statusCodes.OK).json({ user: tokenUser })
 }
 
-const logout = async (req: Request, res: Response) => {}
+const logout = async (req: CustomRequest, res: Response) => {
+  await Token.findOneAndDelete({ user: req.user.userID })
+
+  res.cookie('accessToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  })
+
+  res.cookie('refreshToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  })
+
+  res.status(statusCodes.OK).json({ msg: 'User logged out!' })
+}
 
 export { login, register, logout }

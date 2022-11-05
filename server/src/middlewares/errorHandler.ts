@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import statusCodes from '../errors/statusCodes'
+import { logEvents } from './logger'
 
 type CustomError = {
   statusCode: number
@@ -7,7 +8,6 @@ type CustomError = {
 }
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  console.log(err)
   const customError: CustomError = {
     statusCode: err.statusCode || statusCodes.BAD_REQUEST,
     msg: err.message || 'Something went wrong try again later',
@@ -31,6 +31,9 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
     customError.msg = `No item found with id : ${err.value}`
     customError.statusCode = statusCodes.NOT_FOUND
   }
+
+  // eslint-disable-next-line prettier/prettier
+  logEvents(`${err.name}: ${customError.msg}\t${req.method}\t${req.url}\t${req.headers.origin}`, 'errLog.log')
 
   return res.status(customError.statusCode).json({ error: customError })
 }

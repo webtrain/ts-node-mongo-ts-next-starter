@@ -7,6 +7,7 @@ export interface IUser {
   email: string
   password: string
   role: 'admin' | 'user'
+  status: 'Pending' | 'Verified'
 }
 
 interface UserMethods {
@@ -46,6 +47,11 @@ const UserSchema = new Schema<IUser, UserModel, UserMethods>(
       type: String,
       enum: ['admin', 'moderator', 'user'],
       default: 'user',
+    },
+    status: {
+      type: String,
+      enum: ['Pending', 'Verified'],
+      default: 'Pending',
     },
   },
   { timestamps: true },

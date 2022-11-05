@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import 'express-async-errors'
 import dotenv from 'dotenv'
+import path from 'path'
 import notFound from './middlewares/notFound'
 import errorHandler from './middlewares/errorHandler'
 import authRoute from './routes/authRoute'
@@ -16,6 +17,7 @@ import rateLimiter from 'express-rate-limit'
 import helmet from 'helmet'
 import mongoSanitize from 'express-mongo-sanitize'
 import morgan from 'morgan'
+import { logger } from './middlewares/logger'
 
 dotenv.config()
 
@@ -35,8 +37,9 @@ app.use(
   }),
 )
 app.use(morgan('tiny'))
+app.use(logger)
 
-app.use(express.static('./public'))
+app.use(express.static(path.join(__dirname, '/public')))
 app.use(fileUpload())
 
 // Routes
