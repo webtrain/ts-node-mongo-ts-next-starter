@@ -9,7 +9,8 @@ services:
     ports:
       - 3000:3000
     networks:
-      - mern-network
+      - client-network
+      - backend-network
     volumes:
       - ./client:/usr/src/app/
       - /usr/src/app/node_modules
@@ -22,7 +23,8 @@ services:
     ports:
       - 5500:5500
     networks:
-      - mern-network
+      - client-network
+      - backend-network
     volumes:
       - ./server/src:/usr/src/app/src
     depends_on:
@@ -35,13 +37,13 @@ services:
     ports:
       - 27017:27017
     networks:
-      - mern-network
+      - backend-network
     volumes:
       - mongo-data:/data/db
 
 networks:
-  mern-network:
-    driver: bridge
+  - client-network
+  - backend-network
 
 volumes:
   mongo-data:
