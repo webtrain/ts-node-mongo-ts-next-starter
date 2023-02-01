@@ -10,7 +10,7 @@
     "@types/express": "^4.17.15",
     "@types/express-fileupload": "^1.4.1",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/morgan": "^1.9.3",
+    "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.18",
     "@types/validator": "^13.7.10",
     "@typescript-eslint/parser": "^5.48.1",
